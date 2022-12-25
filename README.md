@@ -3,28 +3,31 @@
 
 ## Playbook для установки Clickhouse, Vector и LightHouse
 ### Описание
-использует следующие роли:  
+
+Используются следующие роли:  
+
 [clickhouse](https://github.com/AlexeySetevoi/ansible-clickhouse)  
-[vector-role](https://github.com/Orlov-Pavel/vector-role)  
-[lighthouse-role](https://github.com/Orlov-Pavel/lighthouse-role)  
-Документацию по ролям можно посмотреть в соответствующем репозитории.
+[vector-role](https://github.com/VovetZ/vector-role)  
+[lighthouse-role](https://github.com/VovetZ/lighthouse-role)  
 
 ### Запуск плейбука
-Для запуска плейбука необходимо выполнить следующее:
-1. Находясь в корневой директории плейбука, выполнить команду ```ansible-galaxy install -r requirements.yml -p roles```. Это скачает все, необходимые для выполнения плейбука, роли.
-2. заполнить [inventory файл](./inventory/prod.yml) в соответствии с [описанием](#inventory-файл).
-3. Запустить плейбук командой ```ansible-playbook -i inventory/prod.yml site.yml```.
 
-### Порядок выполнения плейбука
-1 плей: Запускает роль по установке сlickhouse на всех хостах указанных в группе clickhouse в inventory файле.  
-2 плей: Запускает роль по установке vector на всех хостах указанных в группе vector в inventory файле.  
-3 плей: Запускает роль по установке nginx и lighthouse на всех хостах указанных в группе lighthouse в inventory файле.
+1. Выполнить в корневой директории playbook `ansible-galaxy install -r requirements.yml -p roles` для скачивания и установки всех необходимых ролей
+2. Заполнить [Inventory](./inventory/prod.yml) 
+3. Для запуска playbook выполнить `ansible-playbook -i inventory/prod.yml site.yml`
 
-### inventory файл
-Перед выполнением плейбука необходимо указать хосты в соответствующие группы в inventory файле.
-Inventory файл содержит 3 группы хостов:
+### Порядок выполнения
+
+1. Запуск роли по установке сlickhouse на всех хостах указанных в группе clickhouse в inventory
+2. Запуск роли по установке vector на всех хостах указанных в группе vector в inventory  
+3. Запуск роли по установке nginx и lighthouse на всех хостах указанных в группе lighthouse в inventory
+
+### Inventory файл
+
+Inventory содержит 3 группы хостов:
+
 1. clickhouse
 2. vector
 3. lighthouse
 
-На хостах, указанных в группе будет выполнена роль соответствующая имени группы.
+На хостах, указанных в группе, будет выполнена соответствующая имени группы роль.
